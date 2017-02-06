@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <h:outputStylesheet library="css" name="style.css"/>
+        <meta http-equiv="Content-Type"	content="application/xhtml+xml; charset=UTF-8" />
+        <title>Подтверждение</title>
+    </h:head>
+    <h:body>
+        <div class="main" style="height: 400px">
+            <div>
+                <p class="title">Подтвердите вашу заявку</p>
+            </div>
+            <div style="margin: 40px">
+                <p style="color: #808080; font-size: 15px; font-weight: bold">Имя: #{mainBean.nameClient}</p>
+                <p style="color: #808080; font-size: 15px; font-weight: bold">Email: #{mainBean.email}</p>
+                <p style="color: #808080; font-size: 15px; font-weight: bold">Категория: #{mainBean.categRus}</p>
+                <p style="color: #808080; font-size: 15px; font-weight: bold">Тариф: #{mainBean.tarif}</p>
+                <p style="color: #808080; font-size: 15px; font-weight: bold">Расчетная стоимость услуги, руб.: #{mainBean.estimatedCost}</p>
+                <p style="color: #808080; font-size: 15px; font-weight: bold">Расчетный срок, дней: #{mainBean.days} </p>
+                <p style="color: #808080; font-size: 15px; font-weight: bold">Ссылка на файл: #{mainBean.linkToFile}</p>
+            </div>
+            <div style="float: left; width: 550px; padding-top: 25px; padding-left: 220px">
+                <h:form>
+                    <h:commandButton style="width: 80px; height: 30px" id="last" value="Назад" action="index?faces-redirect=true"/>
+                    <h:commandButton style="width: 100px; height: 30px" id="submit" actionListener="#{mainBean.insertDatabase()}" value="Подтвердить" action="complete?faces-redirect=true"/>
+                </h:form>
+            </div>
+        </div>
+    </h:body>
+</html>

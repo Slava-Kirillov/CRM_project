@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta http-equiv="Content-Type"	content="application/xhtml+xml; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="style.css"/>
+        <script src="http://code.jquery.com/jquery-latest.js"/>
+        <h:outputScript library="js" name="common.js"/>
+        <title>Терминал передачи файлов</title>
+    </h:head>
+    <h:body>
+       <div class="main">
+            <div>
+                <h:form>
+                    <p class="title">Форма менеджера: расчёт по заявке для клиента</p>
+                    <hr /><br/>
+                    <div class="div_4">
+                        <div class="block1">
+                            <p class="text1">Имя клиента</p>
+                        </div>
+                        <div class="login_div">
+                            <p:inputText value="#{mainBean.nameClient}" required="true" requiredMessage="*Введите имя" id="username" placeholder="Введите ваше имя">
+                                <f:validator validatorId="namevalidator" />
+                                <p:ajax event="change" update="nameMess" />
+                            </p:inputText>
+                        </div>
+                        <div style="float: left; margin-left: 20px; margin-top: 7px"><h:message for="username" id="nameMess" style="color: red; font-size: 11px; text-align: center"/></div>
+                    </div>
+                    <div class="div_4">
+                        <div class="block1">
+                            <p class="text1">Email</p>
+                        </div>
+                        <div class="login_div">
+                            <p:inputText value="#{mainBean.email}" required="true" requiredMessage="*Введите email" id="email" placeholder="Email">
+                                <f:validator validatorId="emailvalidator" />
+                                <p:ajax event="change" update="emailMess" />
+                            </p:inputText>
+                        </div> 
+                        <div style="float: left; margin-left: 20px; margin-top: 7px"><h:message for="email" id="emailMess"  style="color: red; font-size: 11px; text-align: center"/></div>
+                    </div>
+                    <div class="div_3">
+                        <div class="block1">
+                            <p class="text1">Категория</p>
+                            <p class="text1">расшифровки</p>
+                        </div>
+                        <div class="block2">
+                            <h:selectOneRadio layout="pageDirection" styleClass="text1" onclick="javascript:Selected(this)" value="#{mainBean.category}">
+                                <f:selectItem itemLabel="Стандарт" itemValue="standart" />
+                                <f:selectItem itemLabel="Для суда" itemValue="sud"/>
+                                <f:selectItem itemLabel="Иностранный язык" itemValue="Lang"/>
+                                <p:ajax event="change" update="estimCost estimDay" listener="#{mainBean.detDaysAndPrice()}"/>
+                            </h:selectOneRadio>
+                        </div>
+                    </div>
+                    <div class="div_1">
+                        <div class="block1">
+                            <p class="text1">Продолжительность,</p>
+                            <p class="text1">минут</p>
+                        </div>
+                        <div class="login_div">
+                            <p:inputText value="#{mainBean.lengthAudio}" id="lengthAudio" requiredMessage="*Введите число" required="true" style="font-size: large; width: 50px" >
+                               <f:validator validatorId="lengthaudiovalidator"/>
+                                <p:ajax event="keyup" update="estimCost costMess" listener="#{mainBean.detDaysAndPrice()}"/>
+                            </p:inputText>
+                            <div style="float: right; margin-left: 20px; margin-top: 7px"><h:message for="lengthAudio" id="costMess" style="color: red; font-size: 11px; text-align: center"/></div>
+                            <p class="p"><font size="0.1" color="grey">Введите для предварительного расчёта на сайте.</font></p>
+                        </div>
+                    </div>
+                    <div id='Block1' style="display: block;">
+                        <div class="div_2">
+                            <div class="block1">
+                                <p class="text1">Тариф</p>
+                                <p class="text1">(категория «Стандарт»)</p>
+                            </div>
+                            <div class="block2">
+                                <h:selectOneRadio layout="pageDirection" styleClass="text1" value="#{mainBean.tarif_1}">
+                                    <f:selectItem itemLabel="«Бюджет»: от 5 дней – 19 ₽/мин" itemValue="butjet"/>
+                                    <f:selectItem itemLabel="«Эконом»: от 3 дней – 25 ₽/мин" itemValue="econom"/>
+                                    <f:selectItem itemLabel="«Оптимум»: от 1 дня – 29 ₽/мин" itemValue="optim"/>
+                                    <f:selectItem itemLabel="«Срочно»: в течение дня – 50 ₽/мин" itemValue="fast"/>
+                                    <p:ajax event="change" update="estimCost estimDay" listener="#{mainBean.detDaysAndPrice()}"/>
+                                </h:selectOneRadio>
+                            </div>
+                        </div>
+                    </div> 
+                    <div id='Block2' style="display: none;">
+                        <div class="div_2">
+                            <div class="block1">
+                                <p class="text1">Тариф</p>
+                                <p class="text1">(категория «Для суда»)</p>
+                            </div>
+                            <div class="block2">
+                                <h:selectOneRadio layout="pageDirection" styleClass="text1" value="#{mainBean.tarif_2}">
+                                    <f:selectItem itemLabel="«Стандарт»: от 2 дней – 39 ₽/мин"            itemValue="st"/>
+                                    <f:selectItem itemLabel="«Пониженное качество»: от 3 дней – 59 ₽/мин" itemValue="bad"/>
+                                    <f:selectItem itemLabel="«Срочно»: от 1 дня – 78 ₽/мин"               itemValue="fast"/>
+                                    <p:ajax event="change" update="estimCost estimDay" listener="#{mainBean.detDaysAndPrice()}"/>
+                                </h:selectOneRadio>
+                            </div>
+                        </div>
+                    </div>
+                    <div id='Block3' style="display: none;">
+                        <div class="div_2">
+                            <div class="block1">
+                                <p class="text1">Тариф</p>
+                                <p class="text1">(категория «Иностранный язык»)</p>
+                            </div>
+                            <div class="block2">
+                                <h:selectOneRadio layout="pageDirection" styleClass="text1" value="#{mainBean.tarif_3}">
+                                    <f:selectItem itemLabel="«Английский»: от 2 дней – 65 ₽/мин" itemValue="Eng"/>
+                                    <f:selectItem itemLabel="«Французский»: от 3 дней – 85 ₽/мин" itemValue="Fren"/>
+                                    <f:selectItem itemLabel="«Испанский»: от 1 дня – 85 ₽/мин" itemValue="Esp"/>
+                                    <f:selectItem itemLabel="«Другой»: от 1 дня – 100 ₽/мин" itemValue="Other"/>
+                                    <p:ajax event="change" update="estimCost otherMess estimDay tOn" listener="#{mainBean.detDaysAndPrice()}"/>
+                                </h:selectOneRadio>
+                                <div>
+                                    <p:inputText id="tOn" value="#{mainBean.other}" disabled="#{mainBean.textOn}" style="margin-left: 20px; width: 200px; height: 15px" placeholder="Другой (введите нужный)">
+                                        <p:ajax event="change" update="otherMess" listener="#{mainBean.validField()}"/>
+                                    </p:inputText>
+                                    <div style="float: right; margin-right: 30px; margin-top: 5px"><h:outputText id="otherMess" value="#{mainBean.messageOther}" style="color: red; font-size: 11px; text-align: center"/></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div_1">
+                        <div style="width: 200px; height: 50px; float: left;">
+                            <font class="text1">Расчетная стоимость, руб.</font><br/>
+                            <p:inputText id="estimCost" value="#{mainBean.estimatedCost}" readonly="true" style="margin-left: 10px; height: 20px; width: 100px; font-size: large" />
+                        </div>
+                        <div style="width: 300px; height: 50px; float: left;">
+                            <font class="text1">Расчётный срок, рабочих дней</font><br/>
+                            <p:inputText id="estimDay" value="#{mainBean.days}" readonly="true" style="margin-left: 10px; height: 20px; width: 100px; font-size: large" />
+                        </div>
+                    </div>
+                    <div style="width: 550px; height: 50px; float: left; margin-top: 10px">
+                        <hr/>
+                        <div class="block1">
+                            <p class="text1">Ссылка</p>
+                            <p class="text1">на аудиофайл</p> 
+                        </div>
+                        <div class="login_div">
+                            <p:inputText value="#{mainBean.linkToFile}" id="linktofile" required="true" style="width: 350px; margin-top: 8px" size="20" placeholder="Введите ссылку">
+                                <f:converter converterId="urlconverter" />
+                                <p:ajax event="change" update="linkMess"/>
+                            </p:inputText>
+                        </div>
+                        <div style="float: right; margin-left: 20px; margin-top: 7px"><h:message for="linktofile" id="linkMess" style="color: red; font-size: 11px; text-align: center"/></div>
+                    </div>
+                    <div style="float: left; height: 40px; width: 550px; margin-top: 25px; margin-left: 240px">
+                        <h:commandButton id="next" style="width: 80px; height: 30px" actionListener="#{mainBean.engToRus()}" value="Далее" action="#{mainBean.validField()}"/>
+                    </div>
+                    <script>
+                        Reload("#{mainBean.category}")
+                    </script>
+                </h:form>
+            </div>
+        </div>
+    </h:body>
+</html>

@@ -1,0 +1,111 @@
+body {
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: normal;
+    background-color: #FFF;
+    margin:25px;
+}
+.main {
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Параметры тени */
+    background-color: #fff;
+    width: 580px;
+    height:600px;
+    margin:0 auto;
+    padding:20px;
+}
+.title {
+    color: #5D8AA8;
+    text-align:center;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.text1{
+    color: #808080;
+    text-align: left;
+    font-size:11px;
+    font-weight:bold;
+
+    padding-left:10px;
+    /*padding-bottom: 0;
+    padding-right: 0;
+    padding-top: 0;*/
+    margin: 0;
+}
+
+.input {
+    margin-top: 5px; 
+} 
+
+.input_length {
+    margin-top: 10px;
+    width:100px;
+    height:20px;/*высота блока*/
+} 
+
+hr {
+    border: none; /* Убираем границу */
+    background-color: #808080; /* Цвет линии */
+    color: #CADABA; /* Цвет линии для IE6-7 */
+    height: 1px; /* Толщина линии */
+}
+
+.login_div{
+    width:210px;
+    height:40px;/*высота блока*/
+    /*border: 1px solid #eaeaea;*/
+    margin: 0 auto;
+    float: left;
+}
+.block1 { 
+    width:180px;/*ширина блока*/
+    height:20px;/*высота блока*/
+    margin-top: 8px;
+    float: left;
+}
+
+.block2 { 
+    width:370px;/*ширина блока*/
+    height:20px;/*высота блока*/
+    margin-top: 8px;
+    float: left;
+}
+
+.div_1 {
+    width: 550px;
+    height: 50px;
+    float: left;
+} 
+
+.div_2 {
+    width: 550px;
+    height: 130px;
+    float: left;
+} 
+
+.div_3 {
+    width: 550px;
+    height: 90px;
+    float: left;
+} 
+
+.div_4 {
+    width: 550px;
+    height: 40px;
+    float: left;
+} 
+
+.radio {
+    float: top;
+}
+
+.p {
+    margin: 0;
+    padding: 0;
+    width: 300px;
+}
+
+
+
+
